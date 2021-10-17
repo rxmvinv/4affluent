@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <SearchPanel />
     <MessagesList />
     <MessageForm />
   </div>
@@ -9,12 +10,14 @@
 import { mapActions } from 'vuex';
 import MessagesList from './components/MessagesList.vue'
 import MessageForm from './components/MessageForm.vue'
+import SearchPanel from './components/SearchPanel.vue'
 
 export default {
   name: 'App',
   components: {
     MessagesList,
-    MessageForm
+    MessageForm,
+    SearchPanel
   },
   methods: {
     ...mapActions({
@@ -36,12 +39,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 body {
   margin: 0;
 }
 .messages-list {
+  margin-top: 20px;
   margin-bottom: 100px;
 }
 .new-message-form {

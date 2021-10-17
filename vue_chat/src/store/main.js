@@ -11,7 +11,8 @@ import {
     user: 'unique-user-id-1',
     entities: [],
     updatingEntity: null,
-    selectedMessages: []
+    selectedMessages: [],
+    filteredList: []
   })
 
   const dataFetch = async (url, options) => {
@@ -86,6 +87,36 @@ import {
         console.log(initData)
         commit('setValues', updatedList)
       }).catch(e => console.log(e))
+    },
+
+    filterByParam({ commit, state }, filterParam) {
+      let filteredData = []
+
+      state.filteredList = [...state.entities].filter(ent => {
+        // const curEnt = Object.values()
+
+        if (ent.messageText.includes(filterParam)) {
+          console.log(ent.messageText)
+          filteredData.push(ent)
+          console.log(filteredData)
+        } 
+        // else {
+        //   filteredData = []
+        // }
+
+        // curEnt.map(val => {
+        //   if (val.includes(filterParam)) {
+        //     console.log(val, ent)
+        //     filteredData.push(ent)
+        //   } else {
+        //     filteredData = []
+        //   }
+        // })
+
+      })
+      console.log(filteredData)
+
+      commit('setFiltered', filteredData)
     }
   }
   
@@ -109,6 +140,9 @@ import {
     setDefaultSelection(state) {
       state.selectedMessages = []
       state.updatingEntity = {}
+    },
+    setFiltered(state, filteredValues) {
+      state.filteredList = filteredValues
     }
   }
   

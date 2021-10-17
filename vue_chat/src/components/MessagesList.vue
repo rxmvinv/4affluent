@@ -1,7 +1,7 @@
 <template>
   <transition-group name="messages-list" tag="div" class="messages-list">
     <Message 
-      v-for="entity in entities"
+      v-for="entity in currentEntities"
       v-bind:key="entity.id"
       v-bind:messageEntity="entity"
     />
@@ -17,10 +17,35 @@ export default {
   components: {
     Message
   },
+  data() {
+    return {
+      currentEntities: []
+    }
+  },
   computed: {
     ...mapState({
       entities: state => state.main.entities,
+      filteredEntities: state => state.main.filteredList
     })
+  },
+  mounted() {
+    this.currentEntities = [...this.entities]
+  },
+  watch: {
+    filteredEntities(newValue) {
+      console.log(newValue, 'filtered')
+      if (newValue.length > 0) {
+        this.currentEntities = newValue
+      } else {
+        this.currentEntities = this.entities
+      }
+    },
+    entities(newValue) {
+      console.log(newValue, 'default')
+      if (newValue.length > 0) {
+        this.currentEntities = [...newValue]
+      }
+    }
   }
 }
 </script>
